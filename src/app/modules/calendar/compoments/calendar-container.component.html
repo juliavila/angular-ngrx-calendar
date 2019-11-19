@@ -1,0 +1,6 @@
+<div>
+  <button (click)="openCalendar()">Abrir calendário</button>
+  <div *ngFor="let calendar of calendars | async">
+    <app-monthly-calendar [room]="calendar.room"></app-monthly-calendar>
+  </div>
+</div>

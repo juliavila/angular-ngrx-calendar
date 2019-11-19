@@ -1,0 +1,33 @@
+<div class="calendar">
+
+  <div class="header">
+    <button class="btn-arrow" (click)="goToPrevious()">&lt;</button>
+    <h3 class="title-month" *ngIf="viewModeActive === viewMode.days" (click)="viewModeActive = viewMode.months">
+      {{ months[currentMonth.month] }} {{ currentMonth.year }}
+    </h3>
+    <h3 *ngIf="viewModeActive === viewMode.months">{{ currentMonth.year }}</h3>
+    <button class="btn-arrow" (click)="goToNext()">></button>
+  </div>
+
+  <ng-container *ngIf="viewModeActive === viewMode.days">
+
+    <div class="weeks">
+      <span *ngFor="let week of weeks">{{ week }}</span>
+    </div>
+
+    <div id="days" class="days">
+      <span *ngFor="let day of lastMonthDays" class="last">{{ day }}</span>
+      <span *ngFor="let day of currentMonth.days" [ngClass]="{'current': isToday(currentMonth, day)}">{{ day }}</span>
+      <span *ngFor="let day of nextMonthDays" class="next">{{ day }}</span>
+    </div>
+
+  </ng-container>
+
+  <div id="months" class="months" *ngIf="viewModeActive === viewMode.months">
+    <span *ngFor="let month of monthsList" [ngClass]="{'current': isMonthOfToday(currentMonth.year, month[1])}"
+      (click)="goToMonth(month[1])">
+      {{ month[0].slice(0, 3) }}
+    </span>
+  </div>
+
+</div>
