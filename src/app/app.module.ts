@@ -8,9 +8,11 @@ import { reducers, metaReducers } from './core/store';
 import { AppComponent } from './core/app.component';
 import { HeaderComponent } from './core/header/header.component';
 import { CalendarContainerComponent } from './modules/calendar/compoments/calendar-container.component';
-import { MonthlyCalendarComponent } from './modules/calendar/compoments/monthly-calendar.component';
 import { SharedModule } from './shared/shared.module';
 import { MiniCalendarComponent } from './shared/components/mini-calendar/mini-calendar.component';
+import { MonthlyCalendarComponent } from './modules/calendar/monthly-calendar/monthly-calendar.component';
+import { SidebarComponent } from './modules/sidebar/sidebar.component';
+import { WeeklyCalendarComponent } from './modules/calendar/weekly-calendar/weekly-calendar.component';
 
 const routes: Routes = [
   { path: '', component: CalendarContainerComponent },
@@ -22,7 +24,9 @@ const routes: Routes = [
     HeaderComponent,
     CalendarContainerComponent,
     MonthlyCalendarComponent,
-    MiniCalendarComponent
+    WeeklyCalendarComponent,
+    MiniCalendarComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,

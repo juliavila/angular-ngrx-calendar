@@ -12,7 +12,7 @@
   <ng-container *ngIf="viewModeActive === viewMode.days">
 
     <div class="weeks">
-      <span *ngFor="let week of weeks">{{ week }}</span>
+      <span *ngFor="let week of weeks">{{ week.slice(0, 1) }}</span>
     </div>
 
     <div id="days" class="days">
@@ -24,9 +24,9 @@
   </ng-container>
 
   <div id="months" class="months" *ngIf="viewModeActive === viewMode.months">
-    <span *ngFor="let month of monthsList" [ngClass]="{'current': isMonthOfToday(currentMonth.year, month[1])}"
-      (click)="goToMonth(month[1])">
-      {{ month[0].slice(0, 3) }}
+    <span *ngFor="let month of months; let i = index" [ngClass]="{'current': isMonthOfToday(currentMonth.year, i)}"
+      (click)="goToMonth(i)">
+      {{ month.slice(0, 3) }}
     </span>
   </div>
 

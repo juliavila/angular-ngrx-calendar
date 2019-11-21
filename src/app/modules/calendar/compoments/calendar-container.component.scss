@@ -1,0 +1,20 @@
+.calendar {
+  position: relative;
+  height: calc(100% - 50px);
+  display: flex;
+  width: 100%;
+
+  .sidebar {
+    min-width: 264px; // TODO: transformar em variável
+    max-width: 264px;
+    padding-right: 8px;
+    box-sizing: border-box;
+  }
+
+  .content {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}

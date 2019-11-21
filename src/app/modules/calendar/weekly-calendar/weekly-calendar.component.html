@@ -1,0 +1,31 @@
+<div class="weekly-calendar">
+
+  <div class="header">
+    <div class="months">
+      <span class="month"></span>
+    </div>
+    <div class="year">
+      <span>&lt;</span>
+      <span>2019</span>
+      <span>></span>
+    </div>
+  </div>
+
+  <div class="weeks">
+    <span class="week" *ngFor="let week of weeks">{{ week }}</span>
+  </div>
+  <div class="days">
+    <span class="day" *ngFor="let day of days">{{ day }}</span>
+  </div>
+
+  <div class="hours">
+    <div class="hour" *ngFor="let hour of hours">
+      <div class="hour__label">{{hour}}</div>
+      <div class="hour__content" *ngFor=" let week of weeks">
+        <div class="hour__content__first-half"></div>
+        <div class="hour__content__second-half"></div>
+      </div>
+    </div>
+  </div>
+
+</div>

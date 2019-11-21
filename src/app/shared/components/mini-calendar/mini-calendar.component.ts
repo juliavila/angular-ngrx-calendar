@@ -1,38 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  addMonths,
-  addYears,
-  differenceInCalendarDays,
-  differenceInCalendarMonths,
-  getDay,
-  getDaysInMonth,
-  getMonth,
-  getYear,
-  setMonth,
-  startOfMonth
-} from 'date-fns';
-
-interface IMonth {
-  startsAt?: number;
-  month?: number;
-  year?: number;
-  days: number[];
-}
-
-enum Months {
-  Janeiro = 0,
-  Fevereiro = 1,
-  Março = 2,
-  Abril = 3,
-  Maio = 4,
-  Junho = 5,
-  Julho = 6,
-  Agosto = 7,
-  Setembro = 8,
-  Outubro = 9,
-  Novembro = 10,
-  Dezembro = 11,
-}
+import { CalendarToolsComponent } from '../calendar-tools/calendar-tools.component';
+import { IMonth, Months, Weeks } from '../calendar-tools/calendar.api';
+import { addMonths, addYears, setMonth, startOfMonth } from 'date-fns';
 
 enum ViewMode {
   days,
@@ -45,12 +14,10 @@ enum ViewMode {
   styleUrls: ['./mini-calendar.component.scss']
 })
 
-export class MiniCalendarComponent implements OnInit {
+export class MiniCalendarComponent extends CalendarToolsComponent implements OnInit {
 
-  weeks = ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'];
-
+  weeks = Weeks;
   months = Months;
-  monthsList = Object.entries(this.months).filter(m => typeof m[1] === 'number'); // TODO: tá complexo ainda;
 
   currentDate: Date;
 
@@ -58,8 +25,8 @@ export class MiniCalendarComponent implements OnInit {
   currentMonth: IMonth;
   nextMonth: IMonth;
 
-  lastMonthDays;
-  nextMonthDays;
+  lastMonthDays: number[];
+  nextMonthDays: number[];
 
   viewMode = ViewMode;
   viewModeActive: ViewMode;
@@ -69,21 +36,7 @@ export class MiniCalendarComponent implements OnInit {
     this.updateMonths(startOfMonth(Date.now()));
   }
 
-  // TODO: utils
-
-  sliceLastMonth = (last: IMonth, current: IMonth): number[] => last.days.slice(last.days.length - current.startsAt, last.days.length);
-
-  sliceNextMonth = (next: IMonth, current: IMonth): number[] => next.days.slice(0, 7 - (current.days.length + current.startsAt) % 7);
-
-  getDays = (total: number): number[] => Array(total).fill(null).map((n, index) => ++index);
-
-  isMonthOfToday = (year: number, month: number): boolean => !differenceInCalendarMonths(Date.now(), new Date(year, month));
-
-  isToday = (month: IMonth, day: number): boolean => !differenceInCalendarDays(Date.now(), new Date(month.year, month.month, day));
-
-  // TODO: navigation
-
-  goToNext() {
+  goToNext(): void {
     const actions = {
       [ViewMode.days]: this.goToNextMonth,
       [ViewMode.months]: this.goToNextYear
@@ -92,7 +45,7 @@ export class MiniCalendarComponent implements OnInit {
     actions[this.viewModeActive]();
   }
 
-  goToPrevious() {
+  goToPrevious(): void {
     const actions = {
       [ViewMode.days]: this.goToPreviousMonth,
       [ViewMode.months]: this.goToPreviousYear
@@ -117,15 +70,10 @@ export class MiniCalendarComponent implements OnInit {
   updateMonths(currentDate: Date): void {
     this.currentDate = currentDate;
 
-    this.currentMonth = {
-      startsAt: getDay(currentDate),
-      year: getYear(currentDate),
-      month: getMonth(currentDate),
-      days: this.getDays(getDaysInMonth(currentDate))
-    };
+    this.currentMonth = this.updateCurrentMoth(currentDate);
 
-    this.lastMonth = { days: this.getDays(getDaysInMonth(addMonths(currentDate, -1))) };
-    this.nextMonth = { days: this.getDays(getDaysInMonth(addMonths(currentDate, 1))) };
+    this.lastMonth = this.updateLastMonth(currentDate);
+    this.nextMonth = this.updateNextMonth(currentDate);
 
     this.lastMonthDays = this.sliceLastMonth(this.lastMonth, this.currentMonth);
     this.nextMonthDays = this.sliceNextMonth(this.nextMonth, this.currentMonth);

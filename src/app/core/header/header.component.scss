@@ -2,14 +2,14 @@ header {
   background-color: #1566d1;
   color: #fff;
   margin: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 56px;
+  height: 60px;
   width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
 }
 
 h1 {
   font-size: 22px;
   text-align: center;
+  margin: 0;
 }

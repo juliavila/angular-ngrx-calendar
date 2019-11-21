@@ -1,0 +1,71 @@
+.weekly-calendar {
+  height: calc(100vh - 60px); // TODO: header height deve ser uma variável
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    background: green;
+    display: flex;
+  }
+
+  .weeks {
+    font-size: 12px;
+    text-transform: uppercase;
+    display: flex;
+    padding-left: 50px; // TODO: transformar em variável local
+
+    .week {
+      width: 100%;
+      padding: 3px;
+      box-sizing: border-box;
+    }
+  }
+
+  .days {
+    display: flex;
+    padding-left: 50px; // TODO: transformar em variável local
+
+    .day {
+      width: 100%;
+      padding: 3px;
+      box-sizing: border-box;
+    }
+  }
+
+  .hours {
+    height: 100%;
+    overflow: scroll;
+
+    .hour {
+      height: 48px;
+      border-top: solid 2px lightgray;
+      display: flex;
+
+      &__label {
+        min-width: 50px; // TODO: transformar em variável local
+        box-sizing: border-box;
+        padding: 5px;
+      }
+
+      &__content {
+        width: 100%;
+        border-left: solid 1px lightgray;
+
+        &__first-half,
+        &__second-half {
+          height: 24px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+
+        &__first-half {
+          border-bottom: solid 1px lightgray;
+        }
+
+        // &__second-half {
+        //   background: purple;
+        // }
+      }
+    }
+  }
+}

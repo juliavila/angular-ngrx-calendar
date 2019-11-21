@@ -1,6 +1,16 @@
-<div>
+<!-- <div class="calendar">
   <button (click)="openCalendar()">Abrir calendário</button>
   <div *ngFor="let calendar of calendars | async">
     <app-monthly-calendar [room]="calendar.room"></app-monthly-calendar>
+  </div>
+</div> -->
+
+<div class="calendar">
+  <div class="sidebar">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div class="content">
+    <!-- <app-weekly-calendar></app-weekly-calendar> -->
+    <app-monthly-calendar></app-monthly-calendar>
   </div>
 </div>

@@ -1,0 +1,13 @@
+<div class="monthy-calendar">
+
+  <div class="weeks">
+    <span class="week" *ngFor="let week of weeks">{{ week }}</span>
+  </div>
+
+  <div id="days" class="days">
+    <div *ngFor="let row of days" class="row">
+      <div *ngFor="let day of row" class="day" [ngClass]="day.cssClass">{{ day.day }}</div>
+    </div>
+  </div>
+
+</div>

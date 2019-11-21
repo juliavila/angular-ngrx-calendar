@@ -1,0 +1,44 @@
+.monthy-calendar {
+  height: calc(100vh - 60px); // TODO: header height deve ser uma variável
+  display: flex;
+  flex-direction: column;
+
+  .weeks {
+    font-size: 12px;
+    text-transform: uppercase;
+    display: flex;
+
+    .week {
+      width: 100%;
+      padding: 3px;
+      box-sizing: border-box;
+    }
+  }
+
+  .days {
+    flex: 1 1 0%;
+    display: flex;
+    flex-direction: column;
+    border-left: seashell 1px solid;
+    border-top: seashell 1px solid;
+    box-sizing: border-box;
+
+    .last,
+    .next {
+      color: blue;
+    }
+
+    .row {
+      display: flex;
+      flex: 1 1 0%;
+    }
+
+    .day {
+      width: 100%;
+      border-bottom: seashell 1px solid;
+      border-right: seashell 1px solid;
+      box-sizing: border-box;
+      padding: 3px;
+    }
+  }
+}
