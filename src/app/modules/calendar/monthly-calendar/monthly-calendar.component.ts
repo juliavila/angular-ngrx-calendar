@@ -1,12 +1,14 @@
 import { OnInit, Component } from '@angular/core';
 import { CalendarToolsComponent } from 'src/app/shared/components/calendar-tools/calendar-tools.component';
-import { IMonth, Weeks } from 'src/app/shared/components/calendar-tools/calendar.api';
+import { IMonth, Weeks, DaysOfWeek } from 'src/app/shared/components/calendar-tools/calendar.api';
 import { startOfMonth } from 'date-fns';
 
 interface IMonthDay {
   day: number;
   cssClass: string;
 }
+
+const totalWeeks = 5;
 
 @Component({
   selector: 'app-monthly-calendar',
@@ -41,7 +43,7 @@ export class MonthlyCalendarComponent extends CalendarToolsComponent implements 
       .concat(this.buildMonth(nextMonthDays, 'next'));
 
     let i = 0;
-    while (i < 35) {
+    while (i < DaysOfWeek * totalWeeks) {
       this.days.push(daysList.slice(i, i += 7));
     }
   }

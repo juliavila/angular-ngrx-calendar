@@ -13,6 +13,7 @@ import { MiniCalendarComponent } from './shared/components/mini-calendar/mini-ca
 import { MonthlyCalendarComponent } from './modules/calendar/monthly-calendar/monthly-calendar.component';
 import { SidebarComponent } from './modules/sidebar/sidebar.component';
 import { WeeklyCalendarComponent } from './modules/calendar/weekly-calendar/weekly-calendar.component';
+import { DailyCalendarComponent } from './modules/calendar/daily-calendar/daily-calendar.component';
 
 const routes: Routes = [
   { path: '', component: CalendarContainerComponent },
@@ -25,6 +26,7 @@ const routes: Routes = [
     CalendarContainerComponent,
     MonthlyCalendarComponent,
     WeeklyCalendarComponent,
+    DailyCalendarComponent,
     MiniCalendarComponent,
     SidebarComponent
   ],

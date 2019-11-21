@@ -1,8 +1,24 @@
+export const HoursOfDay = 24;
+export const DaysOfWeek = 7;
+
 export interface IMonth {
   startsAt?: number;
   month?: number;
   year?: number;
   days: number[];
+}
+
+export interface IWeek {
+  month: number;
+  year: number;
+  days: number[];
+}
+
+export interface IDay {
+  year: number;
+  month: number;
+  week: number;
+  day: number;
 }
 
 export const Weeks = [
