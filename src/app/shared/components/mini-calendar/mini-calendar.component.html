@@ -16,9 +16,10 @@
     </div>
 
     <div id="days" class="days">
-      <span *ngFor="let day of lastMonthDays" class="last">{{ day }}</span>
-      <span *ngFor="let day of currentMonth.days" [ngClass]="{'current': isToday(currentMonth, day)}">{{ day }}</span>
-      <span *ngFor="let day of nextMonthDays" class="next">{{ day }}</span>
+      <span *ngFor="let day of lastMonthDays" class="last" (click)="changeCurrentDate(lastMonth, day)">{{ day }}</span>
+      <span *ngFor="let day of currentMonth.days" [ngClass]="{'current': isToday(currentMonth, day)}"
+        (click)="changeCurrentDate(currentMonth, day)">{{ day }}</span>
+      <span *ngFor="let day of nextMonthDays" class="next" (click)="changeCurrentDate(nextMonth, day)">{{ day }}</span>
     </div>
 
   </ng-container>

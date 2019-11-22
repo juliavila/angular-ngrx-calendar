@@ -1,10 +1,16 @@
 export const HoursOfDay = 24;
 export const DaysOfWeek = 7;
 
+export enum ViewMode {
+  Daily,
+  Weekly,
+  Monthly
+}
+
 export interface IMonth {
   startsAt?: number;
-  month?: number;
-  year?: number;
+  month: number;
+  year: number;
   days: number[];
 }
 

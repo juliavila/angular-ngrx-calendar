@@ -1,0 +1,16 @@
+<form #myForm="ngForm" novalidate (change)="submitForm(myForm)">
+  <div>
+    <input id="monthly" type="radio" name="viewMode" [value]="viewMode.Monthly" [(ngModel)]="viewModeSelected">
+    <label for="monthly">monthly</label>
+  </div>
+
+  <div>
+    <input id="weekly" type="radio" name="viewMode" [value]="viewMode.Weekly" [(ngModel)]="viewModeSelected">
+    <label for="weekly">weekly</label>
+  </div>
+
+  <div>
+    <input id="daily" type="radio" name="viewMode" [value]="viewMode.Daily" [(ngModel)]="viewModeSelected">
+    <label for="daily">daily</label>
+  </div>
+</form>

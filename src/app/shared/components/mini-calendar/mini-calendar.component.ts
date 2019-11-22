@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CalendarToolsComponent } from '../calendar-tools/calendar-tools.component';
 import { IMonth, Months, Weeks } from '../calendar-tools/calendar.api';
-import { addMonths, addYears, setMonth, startOfMonth } from 'date-fns';
+import { addMonths, addYears, setMonth, startOfMonth, setDay } from 'date-fns';
+import { Observable } from 'rxjs';
+import { Calendar } from 'src/app/core/store/calendar/calendar.reducer';
+import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app/core/store';
+import { getCalendar } from 'src/app/core/store/calendar/calendar.selector';
+import { changeDate } from 'src/app/core/store/calendar/calendar.actions';
 
 enum ViewMode {
   days,
@@ -31,9 +37,23 @@ export class MiniCalendarComponent extends CalendarToolsComponent implements OnI
   viewMode = ViewMode;
   viewModeActive: ViewMode;
 
+  calendar: Observable<Calendar>;
+
+  constructor(private store: Store<AppState>) {
+    super();
+  }
+
   ngOnInit() {
     this.viewModeActive = ViewMode.days;
-    this.updateMonths(startOfMonth(Date.now()));
+    this.updateMonths(startOfMonth(new Date(Date.now())));
+
+    this.store.pipe(select(getCalendar)).subscribe(c => this.updateMonths(startOfMonth(c.date)));
+  }
+
+  changeCurrentDate(month: IMonth, day: number) {
+    const date: Date = new Date(month.year, month.month, day);
+    this.updateMonths(date);
+    this.store.dispatch(changeDate({ date }));
   }
 
   goToNext(): void {

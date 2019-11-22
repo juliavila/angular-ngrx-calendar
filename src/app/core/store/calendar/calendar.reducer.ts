@@ -1,5 +1,6 @@
-import { open } from './calendar.actions';
+import { open, changeDate, changeViewMode } from './calendar.actions';
 import { createReducer, on } from '@ngrx/store';
+import { ViewMode } from 'src/app/shared/components/calendar-tools/calendar.api';
 
 export interface Event {
   title: string;
@@ -7,30 +8,38 @@ export interface Event {
 }
 
 export interface Calendar {
-  room: string;
+  // room: string;
   date: Date;
-  events: Event[];
+  viewMode: ViewMode;
+  events?: Event[];
 }
 
 export interface CalendarState {
-  calendars: Calendar[];
+  calendar: Calendar;
 }
 
 export const initialState: CalendarState = {
-  calendars: []
+  calendar: {
+    date: new Date(),
+    events: [],
+    viewMode: null,
+  },
 };
 
 const calendarActionReducer = createReducer(initialState,
-  on(open, (state, { room, date }) => {
-    const newCalendar: Calendar = {
-      room,
-      date,
-      events: [],
-    };
-
-    return {
-      calendars: [...state.calendars, newCalendar]
-    };
+  on(open, (state, { date, viewMode }) => {
+    const calendar = { date, viewMode };
+    return { ...state, calendar };
+  }),
+  on(changeDate, (state, { date }) => {
+    const calendar = { ...state.calendar };
+    calendar.date = date;
+    return { ...state, calendar };
+  }),
+  on(changeViewMode, (state, { viewMode }) => {
+    const calendar = { ...state.calendar };
+    calendar.viewMode = viewMode;
+    return { ...state, calendar };
   }),
 );
 

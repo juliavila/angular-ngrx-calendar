@@ -1,21 +1,21 @@
 import { calendarReducer, initialState } from './calendar.reducer';
 import * as actions from './calendar.actions';
+import { ViewMode } from 'src/app/shared/components/calendar-tools/calendar.api';
 
 describe('Calendar store', () => {
 
   it('should open a calendar', () => {
     const date = new Date();
-    const room = 'room-123';
-    const action = actions.open({ room, date });
+    const viewMode = ViewMode.Monthly;
+    const action = actions.open({ date, viewMode });
 
     const newState = calendarReducer(initialState, action);
 
     expect(newState).toBeDefined();
     expect(newState).not.toBe(initialState);
 
-    expect(newState.calendars).toBeDefined();
-    expect(newState.calendars.length).toEqual(1);
-    expect(newState.calendars[0].room).toEqual(room);
-    expect(newState.calendars[0].date).toEqual(date);
+    expect(newState.calendar).toBeDefined();
+    expect(newState.calendar.date).toEqual(date);
+    expect(newState.calendar.viewMode).toEqual(viewMode);
   });
 });

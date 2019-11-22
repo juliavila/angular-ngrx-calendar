@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { open } from 'src/app/core/store/calendar/calendar.actions';
 import { Observable } from 'rxjs';
-import { CalendarState, Calendar } from 'src/app/core/store/calendar/calendar.reducer';
+import { Calendar } from 'src/app/core/store/calendar/calendar.reducer';
 import { AppState } from 'src/app/core/store';
-import { getAllCalendars } from 'src/app/core/store/calendar/calendar.selector';
+import { getCalendar } from 'src/app/core/store/calendar/calendar.selector';
+import { ViewMode } from 'src/app/shared/components/calendar-tools/calendar.api';
 
 @Component({
   selector: 'app-calendar-container',
@@ -13,7 +14,10 @@ import { getAllCalendars } from 'src/app/core/store/calendar/calendar.selector';
 })
 export class CalendarContainerComponent implements OnInit {
 
-  calendars: Observable<Calendar[]>;
+  viewMode = ViewMode;
+
+  viewModeSelected: ViewMode;
+  calendar: Observable<Calendar>;
 
   constructor(
     private store: Store<AppState>
@@ -23,13 +27,15 @@ export class CalendarContainerComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.calendars = this.store.pipe(select(getAllCalendars));
+    this.calendar = this.store.pipe(select(getCalendar));
+    this.calendar.subscribe(c => this.viewModeSelected = c.viewMode);
+    this.openCalendar();
   }
 
   openCalendar() {
     this.store.dispatch(open({
-      room: `sala-${Date.now()}`,
-      date: new Date()
+      viewMode: ViewMode.Monthly,
+      date: new Date(Date.now())
     }));
   }
 }

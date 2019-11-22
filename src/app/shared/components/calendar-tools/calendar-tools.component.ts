@@ -15,21 +15,19 @@ export abstract class CalendarToolsComponent {
 
   isToday = (month: IMonth, day: number): boolean => !differenceInCalendarDays(Date.now(), new Date(month.year, month.month, day));
 
-  updateCurrentMoth(currentDate: Date): IMonth {
+  updateCurrentMoth = (currentDate: Date): IMonth => this.updateMonth(currentDate);
+
+  updateLastMonth = (currentDate: Date): IMonth => this.updateMonth(addMonths(currentDate, -1));
+
+  updateNextMonth = (currentDate: Date): IMonth => this.updateMonth(addMonths(currentDate, 1));
+
+  private updateMonth(date: Date) {
     return {
-      startsAt: getDay(currentDate),
-      year: getYear(currentDate),
-      month: getMonth(currentDate),
-      days: this.generateNumberArray(getDaysInMonth(currentDate))
+      startsAt: getDay(date),
+      year: getYear(date),
+      month: getMonth(date),
+      days: this.generateNumberArray(getDaysInMonth(date))
     };
-  }
-
-  updateLastMonth(currentDate: Date): IMonth {
-    return { days: this.generateNumberArray(getDaysInMonth(addMonths(currentDate, -1))) };
-  }
-
-  updateNextMonth(currentDate: Date): IMonth {
-    return { days: this.generateNumberArray(getDaysInMonth(addMonths(currentDate, 1))) };
   }
 
 }

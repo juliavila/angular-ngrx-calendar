@@ -14,6 +14,8 @@ import { MonthlyCalendarComponent } from './modules/calendar/monthly-calendar/mo
 import { SidebarComponent } from './modules/sidebar/sidebar.component';
 import { WeeklyCalendarComponent } from './modules/calendar/weekly-calendar/weekly-calendar.component';
 import { DailyCalendarComponent } from './modules/calendar/daily-calendar/daily-calendar.component';
+import { ViewModeComponent } from './modules/calendar/view-mode/view-mode.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   { path: '', component: CalendarContainerComponent },
@@ -28,11 +30,13 @@ const routes: Routes = [
     WeeklyCalendarComponent,
     DailyCalendarComponent,
     MiniCalendarComponent,
-    SidebarComponent
+    SidebarComponent,
+    ViewModeComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    FormsModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot(reducers, {
       metaReducers,

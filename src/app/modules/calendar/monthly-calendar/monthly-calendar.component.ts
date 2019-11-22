@@ -2,6 +2,9 @@ import { OnInit, Component } from '@angular/core';
 import { CalendarToolsComponent } from 'src/app/shared/components/calendar-tools/calendar-tools.component';
 import { IMonth, Weeks, DaysOfWeek } from 'src/app/shared/components/calendar-tools/calendar.api';
 import { startOfMonth } from 'date-fns';
+import { Store, select } from '@ngrx/store';
+import { AppState } from 'src/app/core/store';
+import { getCalendar } from 'src/app/core/store/calendar/calendar.selector';
 
 interface IMonthDay {
   day: number;
@@ -23,12 +26,17 @@ export class MonthlyCalendarComponent extends CalendarToolsComponent implements 
   currentDate: Date;
   days: IMonthDay[][] = [];
 
+  constructor(private store: Store<AppState>) {
+    super();
+  }
+
   ngOnInit() {
-    this.updateMonths(startOfMonth(Date.now()));
+    this.updateMonths(new Date(Date.now()));
+    this.store.pipe(select(getCalendar)).subscribe(c => this.updateMonths(startOfMonth(c.date)));
   }
 
   updateMonths(currentDate: Date): void {
-    this.currentDate = currentDate;
+    this.currentDate = startOfMonth(currentDate);
 
     const currentMonth = this.updateCurrentMoth(currentDate);
 
@@ -41,6 +49,8 @@ export class MonthlyCalendarComponent extends CalendarToolsComponent implements 
     const daysList = this.buildMonth(lastMonthDays, 'last')
       .concat(this.setToday(this.buildMonth(currentMonth.days, ''), currentMonth))
       .concat(this.buildMonth(nextMonthDays, 'next'));
+
+    this.days = [];
 
     let i = 0;
     while (i < DaysOfWeek * totalWeeks) {
