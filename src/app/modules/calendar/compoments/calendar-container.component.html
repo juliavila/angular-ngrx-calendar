@@ -11,6 +11,10 @@
   </div>
   <div class="content">
     <app-view-mode></app-view-mode>
+    year<app-year-pagination></app-year-pagination>
+    month<app-month-pagination></app-month-pagination>
+    week<app-week-pagination></app-week-pagination>
+    date<app-date-pagination></app-date-pagination>
     <app-daily-calendar *ngIf="viewModeSelected === viewMode.Daily"></app-daily-calendar>
     <app-weekly-calendar *ngIf="viewModeSelected === viewMode.Weekly"></app-weekly-calendar>
     <app-monthly-calendar *ngIf="viewModeSelected === viewMode.Monthly"></app-monthly-calendar>

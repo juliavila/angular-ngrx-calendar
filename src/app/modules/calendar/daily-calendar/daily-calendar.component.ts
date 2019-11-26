@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Weeks, Months, IDay, HoursOfDay } from 'src/app/shared/components/calendar-tools/calendar.api';
+import { Weeks, Months, HoursOfDay } from 'src/app/shared/components/calendar-tools/calendar.api';
 import { CalendarToolsComponent } from 'src/app/shared/components/calendar-tools/calendar-tools.component';
-import { addDays, addYears, getDay, getDate, getMonth, getYear, startOfWeek } from 'date-fns';
+import { getDay, getDate } from 'date-fns';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/core/store';
 import { getCalendar } from 'src/app/core/store/calendar/calendar.selector';
@@ -18,7 +18,8 @@ export class DailyCalendarComponent extends CalendarToolsComponent implements On
   months = Months;
 
   currentDate: Date;
-  day: IDay;
+  day: number;
+  week: number;
   hours: number[];
 
   constructor(private store: Store<AppState>) {
@@ -26,30 +27,13 @@ export class DailyCalendarComponent extends CalendarToolsComponent implements On
   }
 
   ngOnInit() {
-    this.updateDay(new Date(Date.now()));
-    this.hours = this.generateHours();
-
-    this.store.pipe(select(getCalendar)).subscribe(c => this.updateDay(c.date));
+    this.hours = this.generateNumberArray(HoursOfDay);
+    this.store.pipe(select(getCalendar)).subscribe(this.updateDay);
   }
 
-  updateDay(date: Date) {
+  updateDay = ({ date }) => {
     this.currentDate = date;
-
-    this.day = {
-      year: getYear(this.currentDate),
-      month: getMonth(this.currentDate),
-      week: getDay(this.currentDate),
-      day: getDate(this.currentDate)
-    };
+    this.week = getDay(this.currentDate);
+    this.day = getDate(this.currentDate);
   }
-
-  generateHours = (): number[] => this.generateNumberArray(HoursOfDay);
-
-  nextDay = () => this.updateDay(addDays(this.currentDate, 1));
-
-  previousDay = () => this.updateDay(addDays(this.currentDate, -1));
-
-  nextYear = () => this.updateDay(addYears(this.currentDate, 1));
-
-  previousYear = () => this.updateDay(addYears(this.currentDate, -1));
 }

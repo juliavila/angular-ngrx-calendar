@@ -16,6 +16,10 @@ import { WeeklyCalendarComponent } from './modules/calendar/weekly-calendar/week
 import { DailyCalendarComponent } from './modules/calendar/daily-calendar/daily-calendar.component';
 import { ViewModeComponent } from './modules/calendar/view-mode/view-mode.component';
 import { FormsModule } from '@angular/forms';
+import { YearPaginationComponent } from './shared/components/calendar-pagination/year-pagination/year-pagination.component';
+import { MonthPaginationComponent } from './shared/components/calendar-pagination/month-pagination/month-pagination.component';
+import { WeekPaginationComponent } from './shared/components/calendar-pagination/week-pagination/week-pagination.component';
+import { DatePaginationComponent } from './shared/components/calendar-pagination/date-pagination/date-pagination.component';
 
 const routes: Routes = [
   { path: '', component: CalendarContainerComponent },
@@ -31,7 +35,11 @@ const routes: Routes = [
     DailyCalendarComponent,
     MiniCalendarComponent,
     SidebarComponent,
-    ViewModeComponent
+    ViewModeComponent,
+    YearPaginationComponent,
+    MonthPaginationComponent,
+    WeekPaginationComponent,
+    DatePaginationComponent,
   ],
   imports: [
     BrowserModule,

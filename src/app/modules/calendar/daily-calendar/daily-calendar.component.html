@@ -1,21 +1,8 @@
 <div class="daily-calendar">
 
-  <div class="header">
-    <span>{{ months[day.month] }}</span>
-    <div>
-      <button (click)="previousYear()">&lt;</button>
-      <span>{{ day.year }}</span>
-      <button (click)="nextYear()">></button>
-    </div>
-    <div>
-      <button (click)="previousDay()">&lt;</button>
-      <button (click)="nextDay()">></button>
-    </div>
-  </div>
-
   <div class="date">
-    <span class="week">{{ weeks[day.week] }}</span>
-    <span class="day">{{ day.day }}</span>
+    <span class="week">{{ weeks[week] }}</span>
+    <span class="day"> {{ day }}</span>
   </div>
 
   <div class="hours">

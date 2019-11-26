@@ -1,6 +1,6 @@
 import { OnInit, Component } from '@angular/core';
 import { CalendarToolsComponent } from 'src/app/shared/components/calendar-tools/calendar-tools.component';
-import { IMonth, Weeks, DaysOfWeek } from 'src/app/shared/components/calendar-tools/calendar.api';
+import { IMonth, Weeks } from 'src/app/shared/components/calendar-tools/calendar.api';
 import { startOfMonth } from 'date-fns';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/core/store';
@@ -32,16 +32,16 @@ export class MonthlyCalendarComponent extends CalendarToolsComponent implements 
 
   ngOnInit() {
     this.updateMonths(new Date(Date.now()));
-    this.store.pipe(select(getCalendar)).subscribe(c => this.updateMonths(startOfMonth(c.date)));
+    this.store.pipe(select(getCalendar)).subscribe(({ date }) => this.updateMonths(startOfMonth(date)));
   }
 
-  updateMonths(currentDate: Date): void {
-    this.currentDate = startOfMonth(currentDate);
+  updateMonths = (date: Date): void => {
+    this.currentDate = startOfMonth(date);
 
-    const currentMonth = this.updateCurrentMoth(currentDate);
+    const currentMonth = this.updateCurrentMoth(date);
 
-    const lastMonth = this.updateLastMonth(currentDate);
-    const nextMonth = this.updateNextMonth(currentDate);
+    const lastMonth = this.updateLastMonth(date);
+    const nextMonth = this.updateNextMonth(date);
 
     const lastMonthDays = this.sliceLastMonth(lastMonth, currentMonth);
     const nextMonthDays = this.sliceNextMonth(nextMonth, currentMonth);
@@ -50,12 +50,8 @@ export class MonthlyCalendarComponent extends CalendarToolsComponent implements 
       .concat(this.setToday(this.buildMonth(currentMonth.days, ''), currentMonth))
       .concat(this.buildMonth(nextMonthDays, 'next'));
 
-    this.days = [];
-
     let i = 0;
-    while (i < DaysOfWeek * totalWeeks) {
-      this.days.push(daysList.slice(i, i += 7));
-    }
+    this.days = Array(totalWeeks).fill(0).map(() => daysList.slice(i, i += 7));
   }
 
   buildMonth = (month: number[], cssClass: string): IMonthDay[] => month.map(day => ({ day, cssClass }));

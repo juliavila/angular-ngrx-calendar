@@ -1,23 +1,10 @@
 <div class="weekly-calendar">
 
-  <div class="header">
-    <span>{{ months[week.month] }}</span>
-    <div>
-      <button (click)="previousYear()">&lt;</button>
-      <span>{{ week.year }}</span>
-      <button (click)="nextYear()">></button>
-    </div>
-    <div>
-      <button (click)="previousWeek()">&lt;</button>
-      <button (click)="nextWeek()">></button>
-    </div>
-  </div>
-
   <div class="weeks">
     <span class="week" *ngFor="let week of weeks">{{ week }}</span>
   </div>
   <div class="days">
-    <span class="day" *ngFor="let day of week.days">{{ day }}</span>
+    <span class="day" *ngFor="let day of days">{{ day }}</span>
   </div>
 
   <div class="hours">

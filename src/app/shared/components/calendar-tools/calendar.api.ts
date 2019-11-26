@@ -14,19 +14,6 @@ export interface IMonth {
   days: number[];
 }
 
-export interface IWeek {
-  month: number;
-  year: number;
-  days: number[];
-}
-
-export interface IDay {
-  year: number;
-  month: number;
-  week: number;
-  day: number;
-}
-
 export const Weeks = [
   'Domingo',
   'Segunda-feira',
