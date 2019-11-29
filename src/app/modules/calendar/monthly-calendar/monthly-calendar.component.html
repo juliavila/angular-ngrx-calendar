@@ -8,6 +8,7 @@
     <div *ngFor="let row of days" class="row">
       <div *ngFor="let day of row" class="day" [ngClass]="day.cssClass">{{ day.day }}</div>
     </div>
+    <app-calendar-event *ngFor="let display of displays" [display]="display"></app-calendar-event>
   </div>
 
 </div>

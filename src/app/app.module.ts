@@ -20,6 +20,8 @@ import { YearPaginationComponent } from './shared/components/calendar-pagination
 import { MonthPaginationComponent } from './shared/components/calendar-pagination/month-pagination/month-pagination.component';
 import { WeekPaginationComponent } from './shared/components/calendar-pagination/week-pagination/week-pagination.component';
 import { DatePaginationComponent } from './shared/components/calendar-pagination/date-pagination/date-pagination.component';
+import { CalendarEventComponent } from './shared/components/calendar-event/calendar-event.component';
+import { InlineSvgComponent } from './shared/components/inline-svg/inline-svg.component';
 
 const routes: Routes = [
   { path: '', component: CalendarContainerComponent },
@@ -40,6 +42,8 @@ const routes: Routes = [
     MonthPaginationComponent,
     WeekPaginationComponent,
     DatePaginationComponent,
+    CalendarEventComponent,
+    InlineSvgComponent
   ],
   imports: [
     BrowserModule,
